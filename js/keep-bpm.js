@@ -1,7 +1,7 @@
 (function() {
   var beatTimes = [];
   var countDown = 10;
-  var playButtonEl = $('#play');
+  var buttonEl = $('#button');
   var countDownEl = $('#count-down');
 
   var sound = (function(){
@@ -28,13 +28,13 @@
   function renderBpm() {
     var bpm = calcBpm();
     countDownEl.html('Your BPM was ' + bpm.bpm + ' (&plusmn; ' + bpm.diff + ')');
-    playButtonEl.text('Again');
+    buttonEl.text('Again');
 
-    playButtonEl.prop('disabled', true);
-    playButtonEl.addClass('disabled');
+    buttonEl.prop('disabled', true);
+    buttonEl.addClass('disabled');
     setTimeout(function() {
-      playButtonEl.prop('disabled', false);
-      playButtonEl.removeClass('disabled');
+      buttonEl.prop('disabled', false);
+      buttonEl.removeClass('disabled');
     }, 1500);
   }
 
@@ -70,7 +70,7 @@
   function reset() {
     beatTimes = [];
     countDown = 10;
-    playButtonEl.text('Play!');
+    buttonEl.text('Play!');
     renderCountDown();
   }
 
@@ -88,7 +88,7 @@
     }
   }
 
-  $('#play').on('click', onPlayClick);
+  buttonEl.on('click', onPlayClick);
 
   reset();
 })();
