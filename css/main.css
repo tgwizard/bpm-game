@@ -1,0 +1,59 @@
+body {
+  height: 100%;
+  min-height: 100%;
+  font-family: avenir, 'avenir next', helvetica, arial, sans-serif;
+
+  padding-top: 200px;
+  text-align: center;
+
+  background-color: #7FDBFF;
+  color: #001f3f;
+  font-size: 10px;
+}
+
+footer {
+  border-top: 1px solid rgba(0, 31, 63, 0.5);
+  width: 30%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+@media (max-width: 600px) {
+  body {
+    padding-top: 120px;
+  }
+
+  footer {
+    width: 80%;
+  }
+}
+
+#count-down {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+button {
+  display: block;
+  background-color: #001f3f;
+  color: hsla(210, 100%, 75%, 1.0);
+  border: 0;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 0.2em;
+  box-shadow: 4px 4px rgba(0, 0, 0, 0.5);
+}
+
+button:focus {
+  outline: 0;
+}
+
+button.disabled {
+  color: grey;
+}
+
+button#play {
+  font-size: 4em;
+  padding: 1em 2em;
+  margin: 1em auto;
+}
