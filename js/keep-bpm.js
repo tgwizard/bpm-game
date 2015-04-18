@@ -27,7 +27,7 @@
 
   function renderBpm() {
     var bpm = calcBpm();
-    countDownEl.html('Your BPM was ' + bpm.bpm + ' (&plusmn; ' + bpm.diff + ')');
+    countDownEl.html('Your BPM was ' + bpm.bpm + ' (&plusmn;' + bpm.diff + ')');
     buttonEl.text('Again');
 
     buttonEl.prop('disabled', true);
