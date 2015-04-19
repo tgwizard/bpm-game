@@ -63,7 +63,9 @@
     var text;
     var correct = Math.abs(guessedBpm - bpm) <= 3;
     if (correct) {
-      text = '<strong>Well done!</strong></br>You guessed ' + guessedBpm + ', and it was ' + bpm + '.';
+      var ex = 'Well done!';
+      if (guessedBpm == bpm) ex = 'Perfect!';
+      text = '<strong>' + ex + '</strong></br>You guessed ' + guessedBpm + ', and it was ' + bpm + '.';
     } else {
       text = '<strong>Nope!</strong></br>You guessed ' + guessedBpm + ', it was actually ' + bpm + '.';
     }
