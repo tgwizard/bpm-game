@@ -60,12 +60,12 @@
     }, 0);
     diff = Math.round(diff);
 
-    var bpmDiffs = _.map(bpms, function(bpm) { return Math.round(bpm - avgBpm); });
+    var bpmDiffsFromTarget = _.map(bpms, function(bpm) { return Math.round(bpm - targetBpm); });
 
     return {
       avg: avgBpm,
       diff: diff,
-      bpmDiffs: bpmDiffs
+      bpmDiffs: bpmDiffsFromTarget
     };
   }
 
