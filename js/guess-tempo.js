@@ -24,15 +24,15 @@
   }
 
   function playTempo() {
-    var synth = T("OscGen", {wave:"tri", mul:0.5});
+    var pluck = T("pluck", {freq:3800, mul:2});
 
     timbre.bpm = bpm;
     T("interval", {interval: "L4", timeout: duration}, function() {
-      synth.noteOn(55, 80);
+      pluck.bang().play();
     }).on("ended", function() {
       this.stop();
       onPlayFinish(bpm);
-    }).set({buddies:synth}).start();
+    }).set({buddies:pluck}).start();
   }
 
   function onPlayFinish() {
