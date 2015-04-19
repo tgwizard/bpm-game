@@ -1,5 +1,5 @@
 (function() {
-  var DURATION = "5sec";
+
   var state = 'waiting';
   var readyButtonEl = $('#ready');
   var speakerEl = $('.speaker');
@@ -8,6 +8,7 @@
   var submitButtonEl = $('#submit');
   var scoreEl = $('#score');
 
+  var duration = "5sec";
   var bpm = -1;
 
   function generateRandomBpm() {
@@ -16,11 +17,17 @@
     return Math.round(MIN + Math.random() * (MAX - MIN));
   }
 
+  function generateRandomDuration() {
+    var MIN = 4;
+    var MAX = 8;
+    return Math.round(MIN + Math.random() * (MAX - MIN));
+  }
+
   function playTempo() {
     var synth = T("OscGen", {wave:"tri", mul:0.5});
 
     timbre.bpm = bpm;
-    T("interval", {interval: "L4", timeout: DURATION}, function() {
+    T("interval", {interval: "L4", timeout: duration}, function() {
       synth.noteOn(55, 80);
     }).on("ended", function() {
       this.stop();
@@ -39,6 +46,8 @@
     speakerEl.removeClass('hidden');
 
     bpm = generateRandomBpm();
+    duration = generateRandomDuration() + 'sec';
+
     playTempo();
   }
 
