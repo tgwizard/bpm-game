@@ -14,6 +14,8 @@
   })();
 
   function playPianoSound() {
+    // The sound lags terribly on mobile devices (Android Chrome at least )
+    if (window.isMobile) return;
     sound.bang().play();
   }
 
