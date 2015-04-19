@@ -8,21 +8,6 @@
 
   var targetBpm = -1;
 
-  var sound = (function(){
-    var sine1 = T("sin", {freq:440, mul:0.5});
-    var sine2 = T("sin", {freq:660, mul:0.5});
-    var sound = T("perc", {r:500}, sine1, sine2).on("ended", function() {
-      this.stop();
-    });
-    return sound;
-  })();
-
-  function playPianoSound() {
-    // The sound lags terribly on mobile devices (Android Chrome at least )
-    if (window.isMobile) return;
-    sound.bang().play();
-  }
-
   function generateTargetBpm() {
     var MIN = 30;
     var MAX = 200;
@@ -115,7 +100,6 @@
   function onPlayClick() {
     if (countDown === 0) return reset();
 
-    playPianoSound();
     beatTimes.push(new Date());
     countDown -= 1;
 
