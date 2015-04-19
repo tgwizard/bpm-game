@@ -38,19 +38,15 @@
 
     var sumBpm = _.reduce(bpms, function(memo, x) { return memo + x; }, 0);
     var avgBpm = Math.round(sumBpm / bpms.length);
-    var diff = _.reduce(bpms, function(maxDiff, bpm) {
-      var currDiff = Math.abs(bpm - avgBpm);
-      if (currDiff > maxDiff) return currDiff;
-      return maxDiff;
-    }, 0);
-    diff = Math.round(diff);
 
-    var bpmDiffsFromTarget = _.map(bpms, function(bpm) { return Math.round(bpm - targetBpm); });
+    var targetDiff = MS_PER_MIN / targetBpm;
+    diffsAgainstTargetDiff = _.map(diffs, function(diff) {
+      return Math.round(diff - targetDiff);
+    });
 
     return {
       avg: avgBpm,
-      diff: diff,
-      bpmDiffs: bpmDiffsFromTarget
+      bpmDiffs: diffsAgainstTargetDiff
     };
   }
 
@@ -70,10 +66,10 @@
     text = '<strong>' + ex + '</strong></br/>' + text;
 
     var bpmDiffs = _.map(bpm.bpmDiffs, function(bpmDiff) {
-      if (bpmDiff < 0) return bpmDiff;
-      return '+' + bpmDiff;
+      if (bpmDiff < 0) return bpmDiff + 'ms';
+      return '+' + bpmDiff + 'ms';
     });
-    text += '<br/><small>' + bpmDiffs + '</small>';
+    text += '<br/><small>' + _.first(bpmDiffs, 5) + '<br/>' + _.rest(bpmDiffs, 5) + '</small>';
 
     countDownEl.html(text);
 
