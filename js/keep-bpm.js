@@ -1,8 +1,12 @@
 (function() {
   var beatTimes = [];
   var countDown = 10;
+
   var buttonEl = $('#button');
   var countDownEl = $('#count-down');
+  var targetBpmEl = $('#target-bpm');
+
+  var targetBpm = -1;
 
   var sound = (function(){
     var sine1 = T("sin", {freq:440, mul:0.5});
@@ -19,6 +23,12 @@
     sound.bang().play();
   }
 
+  function generateTargetBpm() {
+    var MIN = 40;
+    var MAX = 200;
+    return Math.round(MIN + Math.random() * (MAX - MIN));
+  }
+
   function renderCountDown() {
     var text = 'Click ' + countDown + ' times more';
     if (countDown === 10) {
@@ -29,7 +39,21 @@
 
   function renderBpm() {
     var bpm = calcBpm();
-    countDownEl.html('Your BPM was ' + bpm.bpm + ' (&plusmn;' + bpm.diff + ')');
+
+    var ex = 'Nope!';
+    var text = 'Your BPM was ' + bpm.avg + ' (&plusmn;' + bpm.diff + ')';
+
+    var correct = Math.abs(targetBpm - bpm.avg) <= 5;
+
+    if (correct) {
+      ex = 'Well done!';
+      if (targetBpm == bpm.avg) ex = 'Perfect!';
+    }
+
+    text = '<strong>' + ex + '</strong></br/>' + text;
+
+    countDownEl.html(text);
+
     buttonEl.text('Again');
 
     buttonEl.prop('disabled', true);
@@ -64,7 +88,7 @@
     diff = Math.round(diff);
 
     return {
-      bpm: avgBpm,
+      avg: avgBpm,
       diff: diff
     };
   }
@@ -74,6 +98,9 @@
     countDown = 10;
     buttonEl.text('Play!');
     renderCountDown();
+
+    targetBpm = generateTargetBpm();
+    targetBpmEl.html('Target:<br/>' + targetBpm + ' BPM');
   }
 
   function onPlayClick() {

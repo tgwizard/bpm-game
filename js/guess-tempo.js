@@ -65,9 +65,9 @@
     if (correct) {
       var ex = 'Well done!';
       if (guessedBpm == bpm) ex = 'Perfect!';
-      text = '<strong>' + ex + '</strong></br>You guessed ' + guessedBpm + ', and it was ' + bpm + '.';
+      text = '<strong>' + ex + '</strong><br/>You guessed ' + guessedBpm + ', and it was ' + bpm + '.';
     } else {
-      text = '<strong>Nope!</strong></br>You guessed ' + guessedBpm + ', it was actually ' + bpm + '.';
+      text = '<strong>Nope!</strong></br/>You guessed ' + guessedBpm + ', it was actually ' + bpm + '.';
     }
 
     scoreEl.html(text);

@@ -39,10 +39,6 @@ button:focus {
   outline: 0;
 }
 
-button.disabled {
-  color: grey;
-}
-
 .hidden {
   display: none;
 }
@@ -159,8 +155,15 @@ body.guess-tempo {
 /* KEEP BPM */
 
 body.keep-bpm {
+  padding-top: 140px;
   background-color: #7FDBFF;
   color: #001f3f;
+}
+
+@media (max-width: 600px) {
+  body.keep-bpm {
+    padding-top: 40px;
+  }
 }
 
 .keep-bpm a,
@@ -175,12 +178,20 @@ body.keep-bpm {
   border-top: 1px solid rgba(0, 31, 63, 0.5);
 }
 
-.keep-bpm #count-down {
-  font-size: 2em;
+.keep-bpm #target-bpm {
+  font-size: 3rem;
   font-weight: bold;
+}
+
+.keep-bpm #count-down {
+  font-size: 2rem;
 }
 
 .keep-bpm button {
   background-color: #001f3f;
   color: hsla(210, 100%, 75%, 1.0);
+}
+
+.keep-bpm button.disabled {
+  color: grey;
 }
