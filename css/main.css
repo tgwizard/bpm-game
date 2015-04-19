@@ -162,7 +162,7 @@ body.keep-bpm {
 
 @media (max-width: 600px) {
   body.keep-bpm {
-    padding-top: 40px;
+    padding-top: 15px;
   }
 }
 
@@ -179,12 +179,17 @@ body.keep-bpm {
 }
 
 .keep-bpm #target-bpm {
+  margin-bottom: 1rem;
   font-size: 3rem;
   font-weight: bold;
 }
 
 .keep-bpm #count-down {
   font-size: 2rem;
+}
+
+.keep-bpm small {
+  font-size: 55%;
 }
 
 .keep-bpm button {

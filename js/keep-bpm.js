@@ -24,7 +24,7 @@
   }
 
   function generateTargetBpm() {
-    var MIN = 40;
+    var MIN = 30;
     var MAX = 200;
     return Math.round(MIN + Math.random() * (MAX - MIN));
   }
@@ -35,33 +35,6 @@
       text = 'Click ' + countDown + ' times';
     }
     countDownEl.text(text);
-  }
-
-  function renderBpm() {
-    var bpm = calcBpm();
-
-    var ex = 'Nope!';
-    var text = 'Your BPM was ' + bpm.avg + ' (&plusmn;' + bpm.diff + ')';
-
-    var correct = Math.abs(targetBpm - bpm.avg) <= 5;
-
-    if (correct) {
-      ex = 'Well done!';
-      if (targetBpm == bpm.avg) ex = 'Perfect!';
-    }
-
-    text = '<strong>' + ex + '</strong></br/>' + text;
-
-    countDownEl.html(text);
-
-    buttonEl.text('Again');
-
-    buttonEl.prop('disabled', true);
-    buttonEl.addClass('disabled');
-    setTimeout(function() {
-      buttonEl.prop('disabled', false);
-      buttonEl.removeClass('disabled');
-    }, 1500);
   }
 
   function calcBpm() {
@@ -87,10 +60,46 @@
     }, 0);
     diff = Math.round(diff);
 
+    var bpmDiffs = _.map(bpms, function(bpm) { return Math.round(bpm - avgBpm); });
+
     return {
       avg: avgBpm,
-      diff: diff
+      diff: diff,
+      bpmDiffs: bpmDiffs
     };
+  }
+
+  function renderBpm() {
+    var bpm = calcBpm();
+
+    var ex = 'Nope!';
+    var text = 'Your BPM was ' + bpm.avg;
+
+    var correct = Math.abs(targetBpm - bpm.avg) <= 3;
+
+    if (correct) {
+      ex = 'Well done!';
+      if (targetBpm == bpm.avg) ex = 'Perfect!';
+    }
+
+    text = '<strong>' + ex + '</strong></br/>' + text;
+
+    var bpmDiffs = _.map(bpm.bpmDiffs, function(bpmDiff) {
+      if (bpmDiff < 0) return bpmDiff;
+      return '+' + bpmDiff;
+    });
+    text += '<br/><small>' + bpmDiffs + '</small>';
+
+    countDownEl.html(text);
+
+    buttonEl.text('Again');
+
+    buttonEl.prop('disabled', true);
+    buttonEl.addClass('disabled');
+    setTimeout(function() {
+      buttonEl.prop('disabled', false);
+      buttonEl.removeClass('disabled');
+    }, 1500);
   }
 
   function reset() {
