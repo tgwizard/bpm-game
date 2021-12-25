@@ -57,6 +57,11 @@
 
     var guessedBpm = guessedTempoEl.val();
     guessedTempoEl.val('');
+    
+    if(typeof guessedBpm == "string") {
+      guessedBpm = parseInt(guessedBpm);
+      if(isNaN(guessedBpm)) guessedBpm = 0;
+    }
 
     scoreEl.removeClass('hidden');
 
