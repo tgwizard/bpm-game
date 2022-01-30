@@ -1,6 +1,7 @@
 (function() {
 
   var state = 'waiting';
+  var timbreState = 'waiting';
   var readyButtonEl = $('#ready');
   var speakerEl = $('.speaker');
   var formEl = $('#form');
@@ -40,7 +41,7 @@
     formEl.removeClass('hidden');
   }
 
-  function onReadyClick() {
+  function playGame() {
     scoreEl.addClass('hidden');
     readyButtonEl.addClass('hidden');
     speakerEl.removeClass('hidden');
@@ -51,13 +52,35 @@
     playTempo();
   }
 
+  function onTimbreLoaded() {
+    timbreState = 'ready';
+    playGame();
+  }
+
+  function onReadyClick() {
+    // Timbre library tries to start an AudioContext on load,
+    // which will fail if a user gesture has not yet happened.
+    // So we must dynamically load the library.
+    // Ideally the library should be modified to wait for a gesture
+    // or call context.resume() before attempting to play audio.
+    if (timbreState == 'ready') {
+      playGame();
+    } else if (timbreState == 'waiting') {
+      timbreState = 'loading';
+      var scriptEl = document.createElement("script");
+      scriptEl.setAttribute("src", "js/vendor/timbre.js");
+      document.body.appendChild(scriptEl);
+      scriptEl.addEventListener("load", onTimbreLoaded, false);
+    }
+  }
+
   function onSubmit(e) {
     e.preventDefault();
     formEl.addClass('hidden');
 
     var guessedBpm = guessedTempoEl.val();
     guessedTempoEl.val('');
-    
+
     if(typeof guessedBpm == "string") {
       guessedBpm = parseInt(guessedBpm);
       if(isNaN(guessedBpm)) guessedBpm = 0;
