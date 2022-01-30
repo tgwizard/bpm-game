@@ -38,6 +38,7 @@
   function onPlayFinish() {
     speakerEl.addClass('hidden');
     formEl.removeClass('hidden');
+    guessedTempoEl.focus();
   }
 
   function onReadyClick() {
